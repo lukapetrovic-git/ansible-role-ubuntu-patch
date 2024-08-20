@@ -3,7 +3,6 @@ Ansible Role for patching Ubuntu Servers
 
 # Requirements
 - Ansible 2.10 or later
-- Python version
 
 # Tested on
 - Ubuntu 18.04 LTS
