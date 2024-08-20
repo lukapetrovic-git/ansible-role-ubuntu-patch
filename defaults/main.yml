@@ -1,0 +1,28 @@
+# APT packages to upgrade (can be single package, list, *, etc)
+# patch_packages_to_upgrade:
+#   - python3-apt
+#   - bash
+patch_packages_to_upgrade: "*"
+
+# Parse all the upgraded packages (and their new versions) from the APT history log and place them into a variable
+# All upgraded packages will be available in an array under the variable "patch_packages_upgraded.stdout"
+# in the following format: [<package-name>=<upgraded_package_version>]
+# for example: ["dpkg=1.21.1ubuntu2.3", "tcpdump=4.99.1-3ubuntu0.2"]
+patch_get_upgraded_packages: true
+
+# APT history log file path
+# Used if patch_get_upgraded_packages is set to true
+patch_apt_history_path: /var/log/apt/history.log
+
+# String to filter the APT history log to get upgraded packages
+# Used if patch_get_upgraded_packages is set to true
+patch_string_to_filter_upgraded_packages: "Upgrade:"
+
+# Reboot after upgrade if necessary
+patch_reboot: true
+
+# Run apt autoremove after upgrade
+patch_run_autoremove: false
+
+# Run apt-get autoclean after upgrade
+patch_run_autoclean: false
