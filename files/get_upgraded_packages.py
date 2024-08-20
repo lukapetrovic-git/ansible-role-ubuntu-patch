@@ -14,7 +14,7 @@ def get_last_string_occurence(file_path: str, search_string: str) -> str:
               last_occurrence = line.strip()
   return last_occurrence
 
-# not using .removeprefix() for python 3.9 compatibility
+# not using removeprefix() for python 3.9 compatibility
 def remove_prefix(text, prefix):
     if text.startswith(prefix):
         return text[len(prefix):]
