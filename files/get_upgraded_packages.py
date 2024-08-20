@@ -1,6 +1,11 @@
 import argparse
 import re
 
+arguments = argparse.ArgumentParser()
+arguments.add_argument('-p','--apt-history-path', nargs=1, dest='apt_history_path', help='Path to the APT history log file', required=True) #, default='/var/log/apt/history.log')
+arguments.add_argument('-u','--upgrade-string', nargs=1, dest='upgrade_string', help='String to filter on to filter upgraded packages', required=True) #, default='Upgrade: ')
+arguments = arguments.parse_args()
+
 def get_last_string_occurence(file_path: str, search_string: str) -> str:
   last_occurrence = None
   with open(file_path, 'r') as file:
@@ -14,11 +19,6 @@ def remove_prefix(text, prefix):
     if text.startswith(prefix):
         return text[len(prefix):]
     return text
-
-arguments = argparse.ArgumentParser()
-arguments.add_argument('-p','--apt-history-path', nargs=1, dest='apt_history_path', help='Path to the APT history log file', required=True) #, default='/var/log/apt/history.log')
-arguments.add_argument('-u','--upgrade-string', nargs=1, dest='upgrade_string', help='String to filter on to filter upgraded packages', required=True) #, default='Upgrade: ')
-arguments = arguments.parse_args()
 
 upgraded_packages_string = get_last_string_occurence(arguments.apt_history_path[0],arguments.upgrade_string[0])
 upgraded_packages_string = remove_prefix(upgraded_packages_string, arguments.upgrade_string[0])
