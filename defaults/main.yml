@@ -22,7 +22,7 @@ patch_string_to_filter_upgraded_packages: "Upgrade:"
 patch_reboot: true
 
 # Run apt autoremove after upgrade
-patch_run_autoremove: false
+patch_run_autoremove: true
 
 # Run apt-get autoclean after upgrade
-patch_run_autoclean: false
+patch_run_autoclean: true

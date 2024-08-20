@@ -2,8 +2,8 @@ import argparse
 import re
 
 arguments = argparse.ArgumentParser()
-arguments.add_argument('-p','--apt-history-path', nargs=1, dest='apt_history_path', help='Path to the APT history log file', required=True) #, default='/var/log/apt/history.log')
-arguments.add_argument('-u','--upgrade-string', nargs=1, dest='upgrade_string', help='String to filter on to filter upgraded packages', required=True) #, default='Upgrade: ')
+arguments.add_argument('-p','--apt-history-path', nargs=1, dest='apt_history_path', help='Path to the APT history log file', required=True)
+arguments.add_argument('-u','--upgrade-string', nargs=1, dest='upgrade_string', help='String to filter on to filter upgraded packages', required=True)
 arguments = arguments.parse_args()
 
 def get_last_string_occurence(file_path: str, search_string: str) -> str:
