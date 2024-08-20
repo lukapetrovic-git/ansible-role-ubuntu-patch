@@ -1,0 +1,52 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 600
+
+- name: Run upgrades (apt upgrade)
+  ansible.builtin.apt:
+    name: "{{ patch_packages_to_upgrade }}"
+    state: latest
+  register: patch_upgrades_result
+
+- name: Get all packages that have been upgraded
+  ansible.builtin.script: files/get_upgraded_packages.py --apt-history-path "{{ patch_apt_history_path }}" --upgrade-string "{{ patch_string_to_filter_upgraded_packages }}"
+  args:
+    executable: python3
+  register: patch_packages_upgraded
+  when:
+    - patch_get_upgraded_packages | bool
+    - patch_upgrades_result.changed | bool
+
+- name: Print out upgraded packages
+  ansible.builtin.debug:
+    msg:
+      - "List of upgraded packages and their new versions: "
+      - "{{ patch_packages_upgraded.stdout }}"
+  when:
+    - patch_get_upgraded_packages | bool
+    - patch_packages_upgraded.changed | bool
+
+- block:
+    - name: Check if reboot is required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: patch_reboot_required
+
+    - name: Reboot and wait for the machine to get back online
+      ansible.builtin.reboot:
+        reboot_timeout: 600
+      when: patch_reboot_required.stat.exists
+  when: patch_reboot | bool
+
+- name: Run apt autoremove
+  ansible.builtin.apt:
+    autoremove: true
+    purge: true
+  when: patch_run_autoremove | bool
+
+- name: Run autoclean
+  ansible.builtin.apt:
+    autoclean: true
+  when: patch_run_autoclean | bool
