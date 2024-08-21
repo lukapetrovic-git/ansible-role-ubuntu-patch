@@ -26,3 +26,38 @@ patch_run_autoremove: true
 
 # Run apt-get autoclean after upgrade
 patch_run_autoclean: true
+
+# Install and configure unattended-upgrades
+patch_use_unattended_upgrades: true
+
+# Used only if "patch_use_unattended_upgrades: true"
+# Additional package origins to reference, for example:
+# patch_unattended_additional_origins:
+#   - ${distro_id}:${distro_codename}-updates
+#   - ${distro_id}:${distro_codename}-backports
+
+# Used only if "patch_use_unattended_upgrades: true"
+# Python regular expressions, matching packages to exclude from upgrading, for example:
+# patch_package_blacklist_regexp:
+#   - linux-
+#   - libc6$
+
+# Used only if "patch_use_unattended_upgrades: true"
+# Unattended upgrade options:
+patch_unattended_options:
+  - Unattended-Upgrade::AutoFixInterruptedDpkg "true"
+  - Unattended-Upgrade::MinimalSteps "true"
+  - Unattended-Upgrade::InstallOnShutdown "false"
+  - Unattended-Upgrade::Remove-Unused-Kernel-Packages "true"
+  - Unattended-Upgrade::Remove-New-Unused-Dependencies "false"
+  - Unattended-Upgrade::Remove-Unused-Dependencies "false"
+  - Unattended-Upgrade::Automatic-Reboot "false"
+
+# Used only if "patch_use_unattended_upgrades: true"
+# unattended upgrade APT options
+patch_apt_options:
+  - APT::Periodic::Enable "1"
+  - APT::Periodic::Update-Package-Lists "1"
+  - APT::Periodic::Download-Upgradeable-Packages "1"
+  - APT::Periodic::AutocleanInterval "7"
+  - APT::Periodic::Unattended-Upgrade "1"
