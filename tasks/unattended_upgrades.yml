@@ -12,7 +12,7 @@
     group: root
     mode: 0644
   with_items:
-    - 20auto-upgrades
+    - 10periodic
     - 50unattended-upgrades
 
 - name: Ensure that the unattended-upgrades is enabled and running
