@@ -50,3 +50,7 @@
   ansible.builtin.apt:
     autoclean: true
   when: patch_run_autoclean | bool
+
+- name: Include unattended-upgrades
+  ansible.builtin.include_tasks: unattended_upgrades.yml
+  when: patch_use_unattended_upgrades | bool

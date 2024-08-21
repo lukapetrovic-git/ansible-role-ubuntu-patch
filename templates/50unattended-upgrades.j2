@@ -1,0 +1,23 @@
+Unattended-Upgrade::Allowed-Origins {
+    "${distro_id}:${distro_codename}";
+    "${distro_id}:${distro_codename}-security";
+    "${distro_id}ESMApps:${distro_codename}-apps-security";
+    "${distro_id}ESM:${distro_codename}-infra-security";
+{% if patch_unattended_additional_origins is defined%}
+{% for origin in patch_unattended_additional_origins %}
+    "{{ origin }}";
+{% endfor %}
+{% endif %}
+};
+
+Unattended-Upgrade::Package-Blacklist {
+{% if patch_package_blacklist_regexp is defined %}
+{% for package in patch_package_blacklist_regexp %}
+    "{{ package }}";
+{% endfor %}
+{% endif %}
+};
+
+{% for option in patch_unattended_options %}
+{{ option }};
+{% endfor %}
