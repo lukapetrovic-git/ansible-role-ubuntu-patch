@@ -1,8 +1,14 @@
+---
 # APT packages to upgrade (can be single package, list, *, etc)
 # patch_packages_to_upgrade:
 #   - python3-apt
 #   - bash
 patch_packages_to_upgrade: "*"
+
+# APT packages state
+# Allows for the state to be latest so that all packages are upgraded to latest,
+# or set to present when passing in a list of packages with specific versions
+patch_packages_state: latest
 
 # Parse all the upgraded packages (and their new versions) from the APT history log and place them into a variable
 # All upgraded packages will be available in an array under the variable "patch_packages_upgraded.stdout"
