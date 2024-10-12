@@ -1,13 +1,13 @@
 ---
 - name: Update apt cache
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 600
 
 - name: Run upgrades (apt upgrade)
   ansible.builtin.apt:
     name: "{{ patch_packages_to_upgrade }}"
-    state: latest
+    state: "{{ patch_packages_state }}"
   register: patch_upgrades_result
 
 - name: Get all packages that have been upgraded
@@ -28,7 +28,9 @@
     - patch_get_upgraded_packages | bool
     - patch_packages_upgraded.changed | bool
 
-- block:
+- name: Reboot
+  when: patch_reboot | bool
+  block:
     - name: Check if reboot is required
       ansible.builtin.stat:
         path: /var/run/reboot-required
@@ -38,7 +40,6 @@
       ansible.builtin.reboot:
         reboot_timeout: 600
       when: patch_reboot_required.stat.exists
-  when: patch_reboot | bool
 
 - name: Run apt autoremove
   ansible.builtin.apt:

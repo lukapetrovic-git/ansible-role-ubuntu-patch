@@ -12,11 +12,3 @@ Ansible Role for patching Ubuntu Servers
 
 # Role Variables
 All settable variables with explanations and links are located in the defaults/main.yml
-
-## TODO
-- Create Action to publish to Ansible Galaxy
-- Write Molecule tests
-- Create Action to run Molecule tests
-- Create CI
-- Add examples to readme
-- Consider including unattended-upgrades to role
