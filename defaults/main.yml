@@ -37,10 +37,10 @@ patch_run_autoclean: true
 patch_use_unattended_upgrades: true
 
 # Used only if "patch_use_unattended_upgrades: true"
-# Additional package origins to reference, for example:
-# patch_unattended_additional_origins:
-#   - ${distro_id}:${distro_codename}-updates
-#   - ${distro_id}:${distro_codename}-backports
+# Package origins to use:
+patch_unattended_package_origins:
+  - ${distro_id}:${distro_codename}
+  - ${distro_id}:${distro_codename}-security
 
 # Used only if "patch_use_unattended_upgrades: true"
 # Python regular expressions, matching packages to exclude from upgrading, for example:
