@@ -27,6 +27,12 @@ patch_string_to_filter_upgraded_packages: "Upgrade:"
 # Reboot after upgrade if necessary
 patch_reboot: true
 
+# Seconds to wait after the reboot command was successful before attempting to validate the rebooted
+patch_post_reboot_delay: 0
+
+# Maximum seconds to wait for machine to reboot and respond to a test command.
+patch_reboot_timeout: 600
+
 # Run apt autoremove after upgrade
 patch_run_autoremove: true
 

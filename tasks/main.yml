@@ -38,7 +38,8 @@
 
     - name: Reboot and wait for the machine to get back online
       ansible.builtin.reboot:
-        reboot_timeout: 600
+        post_reboot_delay: "{{ patch_post_reboot_delay }}"
+        reboot_timeout: "{{ patch_reboot_timeout }}"
       when: patch_reboot_required.stat.exists
 
 - name: Run apt autoremove
