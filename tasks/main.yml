@@ -12,6 +12,8 @@
   ansible.builtin.apt:
     name: "{{ patch_packages_to_upgrade }}"
     state: "{{ patch_packages_state }}"
+  async: "{{ patch_upgrade_wait_seconds }}"
+  poll: 30
   register: patch_upgrades_result
 
 - name: Get all packages that have been upgraded

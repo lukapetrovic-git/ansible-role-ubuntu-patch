@@ -73,3 +73,6 @@ patch_apt_options:
   - APT::Periodic::Download-Upgradeable-Packages "1"
   - APT::Periodic::AutocleanInterval "7"
   - APT::Periodic::Unattended-Upgrade "1"
+
+# How long to wait for the upgrade process (async) to complete (in seconds)
+patch_upgrade_wait_seconds: 3600
